@@ -15,7 +15,7 @@ class PhoneNote extends Model
      * @var array
      */
     protected $fillable = [
-        'phone_number', 'name', 'description',
+        'user_id', 'phone_number', 'name', 'description',
     ];
 
     /**

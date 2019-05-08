@@ -7,9 +7,15 @@
                 <div class="card">
                     <div class="card-header">Phone Notes</div>
                     <div class="card-body">
+                        @if(session('message'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('message') }}
+                            </div>
+                        @endif
+
                         <div class="text-right">
-                            <a href="{{ 'phone-notes.create' }}" class="btn btn-dark">Download all Phone Notes</a>
-                            <a href="{{ 'phone-notes.create' }}" class="btn btn-primary">+ New Phone Note</a>
+                            <a href="{{ route('phone-notes.create') }}" class="btn btn-dark">Download all Phone Notes</a>
+                            <a href="{{ route('phone-notes.create') }}" class="btn btn-primary">+ New Phone Note</a>
                         </div>
                         <hr>
 
