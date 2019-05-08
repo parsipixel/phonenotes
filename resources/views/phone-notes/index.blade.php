@@ -14,27 +14,30 @@
                         @endif
 
                         <div class="text-right">
-                            <a href="{{ route('phone-notes.create') }}" class="btn btn-dark">Download all Phone Notes</a>
+                            <a href="{{ route('phone-notes.download') }}" class="btn btn-dark">Download all Phone Notes</a>
                             <a href="{{ route('phone-notes.create') }}" class="btn btn-success">+ New Phone Note</a>
                         </div>
                         <hr>
 
                         @if($phoneNotes)
-                            <table class="table">
+                            <table class="table table-hover">
+                                <thead>
                                 <tr>
                                     <th>Name</th>
                                     <th>Phone Number</th>
                                     <th>Description</th>
                                     <th>Actions</th>
                                 </tr>
+                                </thead>
+                                <tbody>
                                 @foreach($phoneNotes as $phoneNote)
                                     <tr>
                                         <td><a href="{{ route('phone-notes.show', [ $phoneNote->id ]) }}">{{ $phoneNote->name }}</a></td>
                                         <td>{{ $phoneNote->phone_number }}</td>
                                         <td>{{ Str::limit($phoneNote->description, 45) }}</td>
-                                        <td><a href="{{ route('phone-notes.edit', [ $phoneNote->id ]) }}" class="btn btn-sm btn-primary">Edit</a></td>
                                         <td>
-                                            <form action="{{ route('phone-notes.destroy', [ $phoneNote->id ]) }}" method="post">
+                                            <a href="{{ route('phone-notes.edit', [ $phoneNote->id ]) }}" class="btn btn-sm btn-primary float-right ml-2">Edit</a>
+                                            <form action="{{ route('phone-notes.destroy', [ $phoneNote->id ]) }}" method="post" class="float-right ml-2">
                                                 @csrf
                                                 @method('delete')
                                                 <input type="submit" value="Delete" class="btn btn-sm btn-danger">
@@ -42,6 +45,7 @@
                                         </td>
                                     </tr>
                                 @endforeach
+                                </tbody>
                             </table>
 
                         @else

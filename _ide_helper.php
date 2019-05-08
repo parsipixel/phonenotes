@@ -14250,7 +14250,8 @@ namespace  {
     class Validator extends \Illuminate\Support\Facades\Validator {}
 
     class View extends \Illuminate\Support\Facades\View {}
- 
+
+    class PDF extends \Barryvdh\DomPDF\PDF {}
 }
 
 

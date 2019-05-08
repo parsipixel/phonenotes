@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PhoneNoteRequest;
 use App\PhoneNote;
+use PDF;
 
 /**
  * Class PhoneNotesController
@@ -149,5 +150,18 @@ class PhoneNotesController extends Controller
                 'status' => 'success'
             ]);
         }
+    }
+
+    /**
+     * Generates PDF file for download
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function download()
+    {
+        $phoneNotes = PhoneNote::orderby('name')->get();
+        $pdf = PDF::loadView('phone-notes.pdf-view', ['phoneNotes' => $phoneNotes]);
+
+        return $pdf->download('List-of-My-PhoneNotes.pdf');
     }
 }

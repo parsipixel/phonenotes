@@ -20,5 +20,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth']], function () {
+    Route::get('/phone-notes/download', 'PhoneNotesController@download')->name('phone-notes.download');
     Route::resource('phone-notes', 'PhoneNotesController');
 });
