@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\PhoneNote;
 use Illuminate\Http\Request;
 
 class PhoneNotesController extends Controller
@@ -13,7 +14,8 @@ class PhoneNotesController extends Controller
      */
     public function index()
     {
-        //
+        $phoneNotes = PhoneNote::paginate(10);
+        return view('phone-notes.index')->with(['phoneNotes' => $phoneNotes]);
     }
 
     /**
