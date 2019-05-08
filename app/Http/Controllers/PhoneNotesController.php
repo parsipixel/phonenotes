@@ -65,7 +65,15 @@ class PhoneNotesController extends Controller
      */
     public function show($id)
     {
-        //
+        $phoneNote = PhoneNote::find($id);
+        if ($phoneNote) {
+            return view('phone-notes.show')->with('phoneNote', $phoneNote);
+        } else {
+            return redirect()->route('phone-notes.index')->with([
+                'message' => 'Oops! The `Phone Note` was not found!',
+                'status' => 'danger'
+            ]);
+        }
     }
 
     /**
@@ -79,6 +87,11 @@ class PhoneNotesController extends Controller
         $phoneNote = PhoneNote::find($id);
         if ($phoneNote) {
             return view('phone-notes.edit')->with('phoneNote', $phoneNote);
+        } else {
+            return redirect()->route('phone-notes.index')->with([
+                'message' => 'Oops! The `Phone Note` was not found!',
+                'status' => 'danger'
+            ]);
         }
     }
 
