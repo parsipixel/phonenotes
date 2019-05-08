@@ -15,7 +15,9 @@ class CreatePhoneNotesTable extends Migration
     {
         Schema::create('phone_notes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('phone_number', 20);
+            $table->bigInteger('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->string('phone_number', 20)->unique();
             $table->string('name');
             $table->text('description');
             $table->softDeletes();
