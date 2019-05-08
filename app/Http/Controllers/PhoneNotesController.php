@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PhoneNoteRequest;
 use App\PhoneNote;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
+/**
+ * Class PhoneNotesController
+ * @package App\Http\Controllers
+ */
 class PhoneNotesController extends Controller
 {
     /**
@@ -16,9 +18,8 @@ class PhoneNotesController extends Controller
      */
     public function index()
     {
-        $phoneNotes = DB::table('phone_notes')
-            ->orderBy('id', 'desc')
-            ->paginate(10);
+        $phoneNotes = PhoneNote::orderby('id', 'desc')->paginate(10);
+
         return view('phone-notes.index')->with(['phoneNotes' => $phoneNotes]);
     }
 
@@ -50,7 +51,8 @@ class PhoneNotesController extends Controller
             return redirect()->back()->withErrors($phoneNumber);
         } else {
             return redirect()->route('phone-notes.index')->with([
-                'message' => 'Yay! Phone note has been created successfully!'
+                'message' => 'Yay! Phone note has been created successfully!',
+                'status' => 'success'
             ]);
         }
     }
@@ -74,7 +76,10 @@ class PhoneNotesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $phoneNote = PhoneNote::find($id);
+        if ($phoneNote) {
+            return view('phone-notes.edit')->with('phoneNote', $phoneNote);
+        }
     }
 
     /**
@@ -84,9 +89,31 @@ class PhoneNotesController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PhoneNoteRequest $request, $id)
     {
-        //
+        $phoneNote = PhoneNote::find($id);
+        if (!$phoneNote) {
+            return redirect()->route('phone-notes.index')->with([
+                'message' => 'Oops! The `Phone Note` was not found!',
+                'status' => 'danger'
+            ]);
+        } else {
+            $phoneNote->name = $request->get('name');
+            $phoneNote->phone_number = $request->get('phone-number');
+            $phoneNote->description = $request->get('description');
+
+            if (!$phoneNote->save()) {
+                return redirect()->route('phone-notes.index')->with([
+                    'message' => 'Hmm! Something went wrong!',
+                    'status' => 'danger'
+                ]);
+            } else {
+                return redirect()->route('phone-notes.index')->with([
+                    'message' => 'Phone note has been updated successfully!',
+                    'status' => 'success'
+                ]);
+            }
+        }
     }
 
     /**
@@ -97,6 +124,17 @@ class PhoneNotesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $phoneNote = PhoneNote::find($id);
+        if (!$phoneNote->delete()) {
+            return redirect()->route('phone-notes.index')->with([
+                'message' => 'Hmm! Something went wrong!',
+                'status' => 'danger'
+            ]);
+        } else {
+            return redirect()->route('phone-notes.index')->with([
+                'message' => 'Phone note has been deleted successfully!',
+                'status' => 'success'
+            ]);
+        }
     }
 }

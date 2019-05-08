@@ -85,7 +85,7 @@
                 </div>
 
                 <div class="links">
-                    <a class="btn btn-lg btn-warning" href="{{ route('phone-notes.index') }}">Create</a>
+                    <a class="btn btn-lg btn-warning" href="{{ route('phone-notes.create') }}">Create</a>
                 </div>
             </div>
         </div>

@@ -9,8 +9,8 @@
                     <div class="card-body">
                         @include('phone-notes.partials.errors')
                         @include('phone-notes.partials.form', [
-                            'action' => route('phone-notes.store'),
-                            'method' => 'post'
+                            'action' => route('phone-notes.update', ['phone-note' => $phoneNote->id]),
+                            'method' => 'put'
                         ])
                     </div>
                     <div class="card-footer">
