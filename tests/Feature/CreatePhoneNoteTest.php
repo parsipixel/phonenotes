@@ -7,9 +7,18 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CreatePhoneNoteTest extends TestCase
 {
+    public function testSuccessCreatePage()
+    {
+        $this->actingAs($this->user);
+        $response = $this->get('/phone-notes/create');
+
+        $response->assertStatus(200);
+    }
+
     public function testSuccessCreate()
     {
         $this->actingAs($this->user);
+        $this->get('/create');
 
         $name = 'TestName';
         $phoneNumber = '8877665';

@@ -9,11 +9,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ReadPhoneNoteTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
     public function testSuccessfulRead()
     {
         $this->actingAs($this->user);
@@ -24,5 +19,13 @@ class ReadPhoneNoteTest extends TestCase
         $response->assertStatus(200);
         $this->assertContains($phoneNote->name, $response->getContent());
         $this->assertNotContains($phoneNote->name . 'MMM', $response->getContent());
+    }
+
+    public function testInvalidPhoneNoteId()
+    {
+        $this->actingAs($this->user);
+        $response = $this->get('/phone-notes/12345678');
+
+        $response->assertStatus(404);
     }
 }
