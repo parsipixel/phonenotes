@@ -7,8 +7,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CreatePhoneNoteTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function testSuccessCreate()
     {
         $this->actingAs($this->user);
