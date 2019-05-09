@@ -2,24 +2,12 @@
 
 namespace Tests\Feature;
 
-use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CreatePhoneNoteTest extends TestCase
 {
     use RefreshDatabase;
-
-    private $user;
-
-    /**
-     * Create a user for creating phone notes
-     */
-    public function setUp(): void
-    {
-        parent::setUp();
-        $this->user = factory(User::class)->create();
-    }
 
     public function testSuccessCreate()
     {
