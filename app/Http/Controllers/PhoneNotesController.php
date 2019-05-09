@@ -67,14 +67,11 @@ class PhoneNotesController extends Controller
     public function show($id)
     {
         $phoneNote = PhoneNote::find($id);
-        if ($phoneNote) {
-            return view('phone-notes.show')->with('phoneNote', $phoneNote);
-        } else {
-            return redirect()->route('phone-notes.index')->with([
-                'message' => 'Oops! The `Phone Note` was not found!',
-                'status' => 'danger'
-            ]);
+        if (!$phoneNote) {
+            abort(404);
         }
+
+        return view('phone-notes.show')->with('phoneNote', $phoneNote);
     }
 
     /**
@@ -86,14 +83,11 @@ class PhoneNotesController extends Controller
     public function edit($id)
     {
         $phoneNote = PhoneNote::find($id);
-        if ($phoneNote) {
-            return view('phone-notes.edit')->with('phoneNote', $phoneNote);
-        } else {
-            return redirect()->route('phone-notes.index')->with([
-                'message' => 'Oops! The `Phone Note` was not found!',
-                'status' => 'danger'
-            ]);
+        if (!$phoneNote) {
+            abort(404);
         }
+
+        return view('phone-notes.edit')->with('phoneNote', $phoneNote);
     }
 
     /**
@@ -107,26 +101,23 @@ class PhoneNotesController extends Controller
     {
         $phoneNote = PhoneNote::find($id);
         if (!$phoneNote) {
+            abort(404);
+        }
+
+        $phoneNote->name = $request->get('name');
+        $phoneNote->phone_number = $request->get('phone-number');
+        $phoneNote->description = $request->get('description');
+
+        if (!$phoneNote->save()) {
             return redirect()->route('phone-notes.index')->with([
-                'message' => 'Oops! The `Phone Note` was not found!',
+                'message' => 'Hmm! Something went wrong!',
                 'status' => 'danger'
             ]);
         } else {
-            $phoneNote->name = $request->get('name');
-            $phoneNote->phone_number = $request->get('phone-number');
-            $phoneNote->description = $request->get('description');
-
-            if (!$phoneNote->save()) {
-                return redirect()->route('phone-notes.index')->with([
-                    'message' => 'Hmm! Something went wrong!',
-                    'status' => 'danger'
-                ]);
-            } else {
-                return redirect()->route('phone-notes.index')->with([
-                    'message' => 'Phone note has been updated successfully!',
-                    'status' => 'success'
-                ]);
-            }
+            return redirect()->route('phone-notes.index')->with([
+                'message' => 'Phone note has been updated successfully!',
+                'status' => 'success'
+            ]);
         }
     }
 
