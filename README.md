@@ -46,6 +46,17 @@ php artisan migrate --seed
 
 To run project's tests run the following command:
 
+- Run this command in the root of the project to run all unit and functional tests:
 ```
-php 
+phpunit
 ```
+
+## Test Coverage
+
+- Run the following command to generate test coverage:
+
+```
+docker exec -w "/var/www/" app vendor/bin/phpunit --coverage-html /var/www/public/test-coverage
+```
+
+- Go to http://localhost/test-coverage/index.html to see the test coverage.
