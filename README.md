@@ -10,15 +10,16 @@ This is a simple **Phone Note** manager.
 
 To start this application, you need to do following steps:
 
-- Run these commands from the root of the project:
+- Run these commands from the **root of the project**:
 ```
 docker-compose up -d
 composer install
-php artisan key:generate
-php artisan vendor:publish
+touch .env
 ```
 
-- Create a `.env` file in the root of the project with these variables: 
+- Run `php artisan vendor:publish` and Select `0` from the list
+
+- Edit `.env` file with these variables: 
 ```
 APP_NAME="Phone Notes"
 APP_ENV=local
@@ -34,9 +35,10 @@ DB_USERNAME=homestead
 DB_PASSWORD=secret
 ```
 
-- Run 
+- Then Run
 
 ```
+php artisan key:generate
 php artisan migrate --seed
 ```
 
