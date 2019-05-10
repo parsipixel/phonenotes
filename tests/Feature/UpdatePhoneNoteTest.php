@@ -35,7 +35,7 @@ class UpdatePhoneNoteTest extends TestCase
 
     public function testInvalidPhoneNumber()
     {
-        $this->get('/home');
+        $this->get('/');
         $this->actingAs($this->user);
         $phoneNote = factory(PhoneNote::class)->create([
             'user_id' => $this->user->id
@@ -49,7 +49,7 @@ class UpdatePhoneNoteTest extends TestCase
         ]);
 
         $response->assertStatus(302);
-        $response->assertRedirect('/home');
+        $response->assertRedirect('/');
         $this->assertDatabaseMissing('phone_notes', [
             'id' => $phoneNote->id,
             'phone_number' => $invalidPhoneNumber

@@ -40,7 +40,7 @@ class CreatePhoneNoteTest extends TestCase
 
     public function testInvalidPhoneNumber()
     {
-        $this->get('/home');
+        $this->get('/');
         $this->actingAs($this->user);
 
         $response = $this->post('/phone-notes', [
@@ -50,12 +50,12 @@ class CreatePhoneNoteTest extends TestCase
         ]);
 
         $response->assertStatus(302);
-        $response->assertRedirect('/home');
+        $response->assertRedirect('/');
     }
 
     public function testEmptyDescription()
     {
-        $this->get('/home');
+        $this->get('/');
         $this->actingAs($this->user);
 
         $response = $this->post('/phone-notes', [
@@ -65,12 +65,12 @@ class CreatePhoneNoteTest extends TestCase
         ]);
 
         $response->assertStatus(302);
-        $response->assertRedirect('/home');
+        $response->assertRedirect('/');
     }
 
     public function testEmptyName()
     {
-        $this->get('/home');
+        $this->get('/');
         $this->actingAs($this->user);
 
         $response = $this->post('/phone-notes', [
@@ -80,12 +80,12 @@ class CreatePhoneNoteTest extends TestCase
         ]);
 
         $response->assertStatus(302);
-        $response->assertRedirect('/home');
+        $response->assertRedirect('/');
     }
 
     public function testEmptyPhoneNumber()
     {
-        $this->get('/home');
+        $this->get('/');
         $this->actingAs($this->user);
 
         $response = $this->post('/phone-notes', [
@@ -95,6 +95,6 @@ class CreatePhoneNoteTest extends TestCase
         ]);
 
         $response->assertStatus(302);
-        $response->assertRedirect('/home');
+        $response->assertRedirect('/');
     }
 }
