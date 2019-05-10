@@ -19,10 +19,12 @@ touch .env
 
 - Run `php artisan vendor:publish` and Select `0` from the list
 
-- Edit `.env` file with these variables: 
+- Edit `.env` file with these variables:
 ```
 APP_NAME="Phone Notes"
 APP_ENV=local
+APP_KEY=
+APP_DEBUG=true
 APP_URL=http://localhost
 
 LOG_CHANNEL=stack
@@ -51,6 +53,10 @@ To run project's tests run the following command:
 - Run this command in the root of the project to run all unit and functional tests:
 ```
 phpunit
+```
+or
+```
+docker exec -w "/var/www/" app vendor/bin/phpunit
 ```
 
 ## Test Coverage
